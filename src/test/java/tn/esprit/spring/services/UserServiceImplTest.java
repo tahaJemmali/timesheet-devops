@@ -26,7 +26,7 @@ public class UserServiceImplTest {
 	@Order(1)
 	public void testRetriveAllUsers(){
 		List<User> listUsers =us.retrieveAllUsers();
-		Assertions.assertEquals(0,listUsers.size());
+		Assertions.assertNotEquals(0,listUsers.size());
 	}
 	@Test
 	@Order(2)
@@ -53,7 +53,7 @@ public class UserServiceImplTest {
 		    Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
 			User u= new User("taha", "Jemmali", date1, Role.ADMINISTRATEUR );
 			User u_saved = us.updateUser(u); 
-			Assertions.assertNotEquals(u,u_saved);
+			Assertions.assertEquals(u,u_saved);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,9 +65,9 @@ public class UserServiceImplTest {
 	@Test
 	@Order(4)
 	public void testDeleteUser() {
+		int a=us.deleteUser("1"); 
+		Assertions.assertEquals(-1,a);
 
-		us.deleteUser("4"); 
-		Assertions.assertNull(us.retrieveUser("4"));
 	}
 
 	@Test

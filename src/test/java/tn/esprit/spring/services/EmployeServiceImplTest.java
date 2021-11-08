@@ -12,56 +12,57 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tn.esprit.spring.entities.Employee;
+import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Role;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
-public class EmployeeServiceImplTest {
+public class EmployeServiceImplTest {
 
 	@Autowired
-	IEmployeeService us;
+	IEmployeService us;
 	
 	@Test
 	@Order(1)
 	public void testRetriveAllEmployes(){
-		List<Employee> listEmployes =us.retrieveAllEmployees();
-		Assertions.assertEquals(0,listEmployes.size());
+		List<Employe> listEmployes =us.retrieveAllEmployes();
+		Assertions.assertNotEquals(0,listEmployes.size());
 	}
 	@Test
 	@Order(2)
 	public void testAddEmploye() {
 
-		    Employee employee= new Employee("sami", "ben ali","taha.jemmali@gmail.com","12345678",false, Role.ADMINISTRATEUR );
-				Employee u_saved = us.addEmployee(employee); 
-				Assertions.assertEquals(employee,u_saved);
+		    Employe Employe= new Employe("sami", "ben ali","taha.jemmali@gmail.com","12345678",false, Role.ADMINISTRATEUR );
+				Employe u_saved = us.addEmploye(Employe); 
+				Assertions.assertEquals(Employe,u_saved);
 	}
 
 	@Test
 	@Order(3)
 	public void testUpdateEmploye() { 
-		    Employee employee= new Employee("taha", "jemmali","sami.benali@gmail.com","12345678",false, Role.CHEF_DEPARTEMENT );
-			Employee u_saved = us.updateEmployee(employee); 
-			Assertions.assertNotEquals(employee,u_saved);
+		    Employe Employe= new Employe("taha", "jemmali","taha.jemmali@gmail.com","12345678",false, Role.ADMINISTRATEUR );
+			Employe u_saved = us.updateEmploye(Employe); 
+			Assertions.assertEquals(Employe,u_saved);
 	}
 
 	@Test
 	@Order(4)
 	public void testDeleteEmploye() {
-		us.deleteEmployee("4"); 
-		Assertions.assertNull(us.retrieveEmployee("4"));
+		
+		int a=us.deleteEmploye("1"); 
+		Assertions.assertEquals(-1,a);
 	}
 
 	@Test
 	@Order(5)
 	public void testRetrieveEmploye() {
-		Employee u =  us.retrieveEmployee("5"); 
-		Assertions.assertEquals(5,u.getId());
+		Employe u =  us.retrieveEmploye("14"); 
+		Assertions.assertEquals(14,u.getId());
 	}
 	@Test
 	@Order(6)
 	public void testLogin() {
-		Employee u =  us.login("taha.jemmali@gmail.com", "12345678"); 
-		Assertions.assertNull(u);
+		Employe u =  us.login("taha.jemmali@gmail.com", "12345678"); 
+		Assertions.assertNotNull(u);
 	}
 }

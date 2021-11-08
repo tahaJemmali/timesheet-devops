@@ -7,71 +7,76 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tn.esprit.spring.entities.Employee;
+import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.repository.EmployeRepository;
 
 @Service
-public class EmployeServiceImpl implements IEmployeeService {
+public class EmployeServiceImpl implements IEmployeService {
 
 	@Autowired
 	EmployeRepository employeRepository;
 
 	private static final Logger l=LogManager.getLogger(EmployeServiceImpl.class);
 	@Override
-	public Employee login(String username, String password) {
+	public Employe login(String username, String password) {
 		l.info("In login() : ");
-		Employee u =  employeRepository.getEmployeeByEmailAndPassword(username, password);
-		l.info("Out of login() : found Employee : "+u);
+		Employe u =  employeRepository.getEmployeeByEmailAndPassword(username, password).get(0);
+		l.info("Out of login() : found Employe : "+u);
 		return u; 
 	}
 	
 	@Override
-	public List<Employee> retrieveAllEmployees() { 
-		List<Employee> Employees = null; 
+	public List<Employe> retrieveAllEmployes() { 
+		List<Employe> Employes = null; 
 		try {
 	
-			l.info("In retrieveAllEmployee() ");
-			Employees = (List<Employee>) employeRepository.findAll();  
-			for (Employee Employee : Employees) {
-				l.debug("Employee +++: "+Employee);
+			l.info("In retrieveAllEmploye() ");
+			Employes = (List<Employe>) employeRepository.findAll();  
+			for (Employe Employe : Employes) {
+				l.debug("Employe +++: "+Employe);
 			} 
-			l.info("Out of retrieveAllEmployee() with success ");
+			l.info("Out of retrieveAllEmploye() with success ");
 		}catch (Exception e) {
-			l.error("Error in  retrieveAllEmployee() with Error: "+ e);
+			l.error("Error in  retrieveAllEmploye() with Error: "+ e);
 		}
 
-		return Employees;
+		return Employes;
 	}
 
 
 	@Override
-	public Employee addEmployee(Employee u) {
-		l.info("In addEmployee() : ");
-		Employee u_saved = employeRepository.save(u); 
-		l.info("Out of addEmployee() : saved Employee: "+u_saved);
+	public Employe addEmploye(Employe u) {
+		l.info("In addEmploye() : ");
+		Employe u_saved = employeRepository.save(u); 
+		l.info("Out of addEmploye() : saved Employe: "+u_saved);
 		return u_saved; 
 	}
 
 	@Override 
-	public Employee updateEmployee(Employee u) { 
-		l.info("In updateEmployee() : ");
-		Employee u_saved = employeRepository.save(u); 
-		l.info("Out of updateEmployee() : updated Employee: "+u_saved);
+	public Employe updateEmploye(Employe u) { 
+		l.info("In updateEmploye() : ");
+		Employe u_saved = employeRepository.save(u); 
+		l.info("Out of updateEmploye() : updated Employe: "+u_saved);
 		return u_saved; 
 	}
 
 	@Override
-	public void deleteEmployee(String id) {
-		l.info("In deleteEmployee() : ");
+	public int deleteEmploye(String id) {
+	try{
+		l.info("In deleteEmploye() : ");
 		employeRepository.deleteById(Long.parseLong(id)); 
-		l.info("Out of deleteEmployee() : deleted Employee id : "+id);
+		l.info("Out of deleteEmploye() : deleted Employe id : "+id);
+		return 1;
+	}catch (Exception e){
+		return -1;
+	}
 	}
 
 	@Override
-	public Employee retrieveEmployee(String id) {
-		l.info("In retrieveEmployee() : ");
-		Employee u =  employeRepository.findById(Long.parseLong(id)).get(); 
-		l.info("Out of retrieveEmployee() : found Employee : "+u);
+	public Employe retrieveEmploye(String id) {
+		l.info("In retrieveEmploye() : ");
+		Employe u =  employeRepository.findById(Long.parseLong(id)).orElse(new Employe()); 
+		l.info("Out of retrieveEmploye() : found Employe : "+u);
 		return u; 
 	}
 

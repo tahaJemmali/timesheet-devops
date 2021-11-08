@@ -54,10 +54,16 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void deleteUser(String id) {
-		l.info("In deleteUser() : ");
-		userRepository.deleteById(Long.parseLong(id)); 
-		l.info("Out of deleteUser() : deleted user id : "+id);
+	public int deleteUser(String id) {
+		try{
+			l.info("In deleteUser() : ");
+			userRepository.deleteById(Long.parseLong(id)); 
+			l.info("Out of deleteUser() : deleted user id : "+id);
+			return 1;
+		}catch (Exception e){
+			return -1;
+		}
+	
 	}
 
 	@Override
