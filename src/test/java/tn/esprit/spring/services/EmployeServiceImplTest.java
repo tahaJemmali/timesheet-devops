@@ -56,8 +56,8 @@ public class EmployeServiceImplTest {
 	@Test
 	@Order(5)
 	public void testRetrieveEmploye() {
-		Employe u =  us.retrieveEmploye("14"); 
-		Assertions.assertEquals(14,u.getId());
+		Employe u =  us.retrieveEmploye("2"); 
+		Assertions.assertEquals(Long.parseLong("2"),u.getId());
 	}
 	@Test
 	@Order(6)

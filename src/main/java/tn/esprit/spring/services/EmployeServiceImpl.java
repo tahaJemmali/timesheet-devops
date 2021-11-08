@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entities.Employe;
+import tn.esprit.spring.entities.User;
 import tn.esprit.spring.repository.EmployeRepository;
 
 @Service
@@ -79,8 +80,6 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.info("Out of retrieveEmploye() : found Employe : "+u);
 		return u; 
 	}
-
-
 
 
 }
