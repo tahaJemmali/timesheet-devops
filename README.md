@@ -1,2 +1,2 @@
-# timesheet-devops
+# timesheet DEVOPS
 Devops project
