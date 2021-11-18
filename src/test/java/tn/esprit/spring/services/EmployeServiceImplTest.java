@@ -48,8 +48,8 @@ public class EmployeServiceImplTest {
 	@Test
 	@Order(4)
 	public void testDeleteEmploye() {
-		int a=us.deleteEmploye("24"); 
-		Assertions.assertEquals(1,a);
+		int a=us.deleteEmploye("1"); 
+		Assertions.assertEquals(-1,a);
 	}
 
 	@Test
